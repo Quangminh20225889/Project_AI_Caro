@@ -1,48 +1,34 @@
-# Project AI Caro
+**Dự án AI Caro**
 
-Game Caro/Gomoku với frontend React và backend FastAPI. AI sử dụng Minimax kết hợp Alpha-Beta pruning và heuristic theo các mẫu nước cờ.
+Game Caro/Gomoku với giao diện React và hệ thống xử lý FastAPI. Trí tuệ nhân tạo AI sử dụng thuật toán Minimax kết hợp cắt tỉa Alpha-Beta và đánh giá dựa trên các mẫu nước cờ.
 
-## Chạy backend
+**Hướng dẫn chạy Backend (Hệ thống xử lý)**
 
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
+Mở màn hình dòng lệnh (Terminal/Command Prompt) và chạy lần lượt:
 
-Backend chạy tại:
+- <span style="color:#007ACC">cd backend</span> : Di chuyển vào thư mục backend
+- <span style="color:#007ACC">python -m venv venv</span> : Tạo môi trường ảo
+- <span style="color:#007ACC">venv\Scripts\activate</span> : Bật môi trường ảo (Mac/Linux dùng: <span style="color:#007ACC">source venv/bin/activate</span>)
+- <span style="color:#007ACC">pip install -r requirements.txt</span> : Cài đặt các thư viện cần thiết
+- <span style="color:#007ACC">uvicorn main:app --reload</span> : Chạy server (tại http://localhost:8000)
 
-```text
-http://localhost:8000
-```
+**Hướng dẫn chạy Frontend (Giao diện web)**
 
-## Chạy frontend
+Mở một màn hình dòng lệnh mới và chạy lần lượt:
 
-Mở terminal khác:
+- <span style="color:#007ACC">cd frontend</span> : Di chuyển vào thư mục frontend
+- <span style="color:#007ACC">npm install</span> : Tải và cài đặt các công cụ cần thiết
+- <span style="color:#007ACC">npm run dev</span> : Khởi chạy trang web (tại http://localhost:5173)
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+**Cấu trúc thư mục chính**
 
-Frontend thường chạy tại:
+Phần backend:
 
-```text
-http://localhost:5173
-```
+- Thư mục <span style="color:#007ACC">ai</span> : Thuật toán Minimax và AI đánh cờ
+- Thư mục <span style="color:#007ACC">api</span> : Các API kết nối với giao diện
+- Thư mục <span style="color:#007ACC">core</span> : Luật chơi và logic bàn cờ
+- Thư mục <span style="color:#007ACC">models</span> : Cấu trúc dữ liệu và lịch sử ván đấu
 
-## Cấu trúc chính
+Phần frontend:
 
-```text
-backend/
-  ai/        Minimax, heuristic, AI agent
-  api/       FastAPI endpoints
-  core/      Board logic
-  models/    Schema và SQLite history
-
-frontend/
-  src/       React pages, components, API service
-```
+- Thư mục <span style="color:#007ACC">src</span> : Các trang giao diện React và kết nối API
