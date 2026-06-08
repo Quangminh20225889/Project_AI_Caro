@@ -153,7 +153,7 @@ export default function Game() {
       } catch (err) {
         console.error(err);
         if (!isCancelled) {
-          setAiError('AI move failed. Check backend is running.');
+          setAiError('Lỗi nước đi AI. Hãy kiểm tra server backend.');
         }
       } finally {
         if (!isCancelled) {
@@ -189,34 +189,34 @@ export default function Game() {
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold mb-4 flex items-center space-x-2 text-gray-800">
             <Info size={20} className="text-indigo-500" />
-            <span>Match Info</span>
+            <span>Thông Tin Trận Đấu</span>
           </h2>
           <div className="space-y-4 text-sm">
             <div className="flex justify-between items-center pb-2 border-b">
-              <span className="text-gray-500">Mode</span>
+              <span className="text-gray-500">Chế Độ</span>
               <span className="font-semibold text-gray-800">{setup.mode}</span>
             </div>
             {setup.mode !== 'PvP' && (
               <div className="flex justify-between items-center pb-2 border-b">
-                <span className="text-gray-500">Difficulty</span>
-                <span className="font-semibold text-gray-800 capitalize">{setup.difficulty}</span>
+                <span className="text-gray-500">Độ Khó</span>
+                <span className="font-semibold text-gray-800 capitalize">{setup.difficulty === 'easy' ? 'Dễ' : setup.difficulty === 'medium' ? 'Trung bình' : setup.difficulty === 'hard' ? 'Khó' : setup.difficulty}</span>
               </div>
             )}
             <div className="flex justify-between items-center pb-2 border-b">
-              <span className="text-gray-500">Board Size</span>
+              <span className="text-gray-500">Kích Thước</span>
               <span className="font-semibold text-gray-800">{setup.boardSize}x{setup.boardSize}</span>
             </div>
             <div className="pt-2">
               <div className={`p-3 rounded-lg border flex items-center justify-between ${currentPlayer === 1 && winner === 0 ? 'bg-red-50 border-red-200 shadow-inner' : 'bg-gray-50 border-gray-200'}`}>
                 <div className="flex items-center space-x-2">
                   {setup.mode === 'PvP' ? <User size={16} /> : (setup.mode === 'AvA' ? <Cpu size={16} /> : <User size={16} />)}
-                  <span className="font-bold text-red-600">Player 1 (X)</span>
+                  <span className="font-bold text-red-600">Người chơi 1 (X)</span>
                 </div>
               </div>
               <div className={`mt-2 p-3 rounded-lg border flex items-center justify-between ${currentPlayer === 2 && winner === 0 ? 'bg-blue-50 border-blue-200 shadow-inner' : 'bg-gray-50 border-gray-200'}`}>
                 <div className="flex items-center space-x-2">
                   {setup.mode === 'PvP' ? <User size={16} /> : (setup.mode === 'AvA' ? <Cpu size={16} /> : <Cpu size={16} />)}
-                  <span className="font-bold text-blue-600">Player 2 (O)</span>
+                  <span className="font-bold text-blue-600">Người chơi 2 (O)</span>
                 </div>
               </div>
             </div>
@@ -225,15 +225,15 @@ export default function Game() {
 
         {winner !== 0 && (
           <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 p-6 rounded-2xl shadow-md text-white text-center">
-            <h3 className="text-2xl font-bold mb-2">Game Over!</h3>
+            <h3 className="text-2xl font-bold mb-2">Kết Thúc!</h3>
             <p className="text-lg">
-              {winner === 3 ? "It's a Draw!" : `Player ${winner} (${winner === 1 ? 'X' : 'O'}) Wins!`}
+              {winner === 3 ? "Trận đấu hòa!" : `Người chơi ${winner} (${winner === 1 ? 'X' : 'O'}) Thắng!`}
             </p>
             <button 
               onClick={() => navigate('/setup')}
               className="mt-4 px-6 py-2 bg-white text-emerald-600 rounded-lg font-bold hover:bg-gray-50 transition-colors w-full"
             >
-              Play Again
+              Chơi Lại
             </button>
           </div>
         )}
@@ -253,14 +253,14 @@ export default function Game() {
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold mb-4 flex items-center space-x-2 text-gray-800">
             <Activity size={20} className="text-emerald-500" />
-            <span>AI Analysis</span>
+            <span>Phân Tích AI</span>
           </h2>
           
           <div className="min-h-[196px] flex flex-col justify-center">
             {isProcessing ? (
               <div className="flex flex-col items-center justify-center text-gray-500">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mb-4"></div>
-                <p>AI is thinking...</p>
+                <p>AI đang tính toán...</p>
               </div>
             ) : aiError ? (
               <div className="bg-red-50 p-3 rounded-lg border border-red-100 text-center text-sm text-red-700">
@@ -269,31 +269,31 @@ export default function Game() {
             ) : aiAnalysis ? (
               <div className="space-y-4 text-sm">
                 <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 min-h-[72px]">
-                  <p className="text-xs text-gray-500 mb-1">Reasoning</p>
+                  <p className="text-xs text-gray-500 mb-1">Đánh giá</p>
                   <p className="font-medium text-gray-800">{aiAnalysis.reason}</p>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-2">
                   <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-100 flex flex-col items-center justify-center min-h-[72px]">
                     <Activity size={18} className="text-indigo-500 mb-1" />
-                    <span className="text-xs text-gray-500">Score</span>
+                    <span className="text-xs text-gray-500">Điểm</span>
                     <span className="font-bold text-indigo-700">{aiAnalysis.heuristic_score}</span>
                   </div>
                   <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-100 flex flex-col items-center justify-center min-h-[72px]">
                     <Clock size={18} className="text-emerald-500 mb-1" />
-                    <span className="text-xs text-gray-500">Time (s)</span>
+                    <span className="text-xs text-gray-500">Thời gian (s)</span>
                     <span className="font-bold text-emerald-700">{aiAnalysis.evaluation_time.toFixed(3)}</span>
                   </div>
                   <div className="bg-amber-50 p-3 rounded-lg border border-amber-100 flex flex-col items-center justify-center col-span-2 min-h-[72px]">
                     <Hash size={18} className="text-amber-500 mb-1" />
-                    <span className="text-xs text-gray-500">Nodes Evaluated</span>
+                    <span className="text-xs text-gray-500">Số nút đã xét</span>
                     <span className="font-bold text-amber-700">{aiAnalysis.nodes_evaluated.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
             ) : (
               <div className="text-center text-gray-400 italic">
-                Waiting for AI move...
+                Đang chờ AI đi...
               </div>
             )}
           </div>
@@ -302,17 +302,17 @@ export default function Game() {
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col min-h-[190px] max-h-[400px]">
           <h2 className="text-xl font-bold mb-4 flex items-center space-x-2 text-gray-800">
             <Clock size={20} className="text-blue-500" />
-            <span>Move History</span>
+            <span>Lịch Sử Nước Đi</span>
           </h2>
           <div className="overflow-y-auto flex-1 space-y-2 pr-2">
             {moveHistory.length === 0 ? (
-              <p className="text-gray-400 italic text-center py-4">No moves yet</p>
+              <p className="text-gray-400 italic text-center py-4">Chưa có nước đi nào</p>
             ) : (
               [...moveHistory].reverse().map((move, idx) => (
                 <div key={idx} className="flex justify-between items-center p-2 bg-gray-50 rounded border text-sm">
-                  <span className="text-gray-500">Move {moveHistory.length - idx}</span>
+                  <span className="text-gray-500">Nước {moveHistory.length - idx}</span>
                   <span className={`font-bold ${move.player === 1 ? 'text-blue-600' : 'text-red-600'}`}>
-                    {move.player === 1 ? 'X' : 'O'} at ({move.r}, {move.c})
+                    {move.player === 1 ? 'X' : 'O'} tại ({move.r}, {move.c})
                   </span>
                 </div>
               ))

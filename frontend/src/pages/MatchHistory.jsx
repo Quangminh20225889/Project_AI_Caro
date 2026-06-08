@@ -19,7 +19,7 @@ export default function MatchHistory() {
     <div className="max-w-4xl mx-auto">
       <div className="flex items-center space-x-3 mb-8">
         <History size={32} className="text-indigo-600" />
-        <h1 className="text-3xl font-bold text-gray-800">Match History</h1>
+        <h1 className="text-3xl font-bold text-gray-800">Lịch Sử Trận Đấu</h1>
       </div>
 
       {loading ? (
@@ -28,7 +28,7 @@ export default function MatchHistory() {
         </div>
       ) : history.length === 0 ? (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center text-gray-500">
-          No matches played yet.
+          Chưa có trận đấu nào.
         </div>
       ) : (
         <div className="space-y-4">
@@ -44,7 +44,7 @@ export default function MatchHistory() {
                 </div>
                 <div>
                   <p className="font-bold text-gray-800">
-                    {match.winner === 1 ? 'Player 1 Won' : match.winner === 2 ? 'Player 2/AI Won' : 'Draw'}
+                    {match.winner === 1 ? 'Người chơi 1 Thắng' : match.winner === 2 ? 'Người chơi 2/AI Thắng' : 'Hòa'}
                   </p>
                   <p className="text-xs text-gray-500">{new Date(match.timestamp).toLocaleString()}</p>
                 </div>
@@ -52,19 +52,19 @@ export default function MatchHistory() {
 
               <div className="flex items-center space-x-8 w-2/3 justify-end text-sm">
                 <div className="flex flex-col items-center">
-                  <span className="text-gray-500 text-xs">Mode</span>
+                  <span className="text-gray-500 text-xs">Chế Độ</span>
                   <span className="font-semibold text-gray-700">{match.mode}</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <span className="text-gray-500 text-xs">Difficulty</span>
-                  <span className="font-semibold text-gray-700 capitalize">{match.difficulty || '-'}</span>
+                  <span className="text-gray-500 text-xs">Độ Khó</span>
+                  <span className="font-semibold text-gray-700 capitalize">{match.difficulty === 'easy' ? 'Dễ' : match.difficulty === 'medium' ? 'Trung bình' : match.difficulty === 'hard' ? 'Khó' : '-'}</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <span className="text-gray-500 text-xs">Board</span>
+                  <span className="text-gray-500 text-xs">Bàn Cờ</span>
                   <span className="font-semibold text-gray-700">{match.board_size}x{match.board_size}</span>
                 </div>
                 <div className="flex flex-col items-center">
-                  <span className="text-gray-500 text-xs">Moves</span>
+                  <span className="text-gray-500 text-xs">Số Nước</span>
                   <span className="font-semibold text-gray-700">{match.moves}</span>
                 </div>
               </div>

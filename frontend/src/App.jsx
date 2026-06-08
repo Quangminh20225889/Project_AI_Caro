@@ -14,9 +14,9 @@ function App() {
               Caro Online
             </a>
             <nav className="space-x-4">
-              <a href="/" className="hover:text-indigo-500 font-medium transition-colors">Home</a>
-              <a href="/setup" className="hover:text-indigo-500 font-medium transition-colors">Play</a>
-              <a href="/history" className="hover:text-indigo-500 font-medium transition-colors">History</a>
+              <a href="/" className="hover:text-indigo-500 font-medium transition-colors">Trang chủ</a>
+              <a href="/setup" className="hover:text-indigo-500 font-medium transition-colors">Chơi</a>
+              <a href="/history" className="hover:text-indigo-500 font-medium transition-colors">Lịch sử</a>
             </nav>
           </div>
         </header>

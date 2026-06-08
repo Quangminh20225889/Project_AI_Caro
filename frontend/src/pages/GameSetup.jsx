@@ -20,13 +20,13 @@ export default function GameSetup() {
     <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 p-6 text-white flex items-center space-x-3">
         <Settings className="text-white opacity-80" size={28} />
-        <h2 className="text-2xl font-bold">Game Setup</h2>
+        <h2 className="text-2xl font-bold">Cài Đặt Trận Đấu</h2>
       </div>
 
       <form onSubmit={handleSubmit} className="p-8 space-y-6">
         {/* Game Mode */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-3">Game Mode</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-3">Chế Độ Chơi</label>
           <div className="grid grid-cols-3 gap-3">
             {['PvA', 'PvP', 'AvA'].map((mode) => (
               <button
@@ -39,7 +39,7 @@ export default function GameSetup() {
                     : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                {mode === 'PvA' ? 'Player vs AI' : mode === 'PvP' ? 'Player vs Player' : 'AI vs AI'}
+                {mode === 'PvA' ? 'Người vs Máy' : mode === 'PvP' ? 'Người vs Người' : 'Máy vs Máy'}
               </button>
             ))}
           </div>
@@ -48,7 +48,7 @@ export default function GameSetup() {
         {/* Difficulty (only show if AI is involved) */}
         {setup.mode !== 'PvP' && (
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">AI Difficulty</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-3">Độ Khó AI</label>
             <div className="grid grid-cols-3 gap-3">
               {['easy', 'medium', 'hard'].map((level) => (
                 <button
@@ -61,7 +61,7 @@ export default function GameSetup() {
                       : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
                   }`}
                 >
-                  {level}
+                  {level === 'easy' ? 'Dễ' : level === 'medium' ? 'Trung bình' : 'Khó'}
                 </button>
               ))}
             </div>
@@ -70,7 +70,7 @@ export default function GameSetup() {
 
         {/* Board Size */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-3">Board Size</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-3">Kích Thước Bàn Cờ</label>
           <div className="grid grid-cols-3 gap-3">
             {[10, 15, 20].map((size) => (
               <button
@@ -92,7 +92,7 @@ export default function GameSetup() {
         {/* First Player (only for PvA) */}
         {setup.mode === 'PvA' && (
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">Who Goes First?</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-3">Ai Đi Trước?</label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
@@ -103,7 +103,7 @@ export default function GameSetup() {
                     : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                Player (X)
+                Người chơi (X)
               </button>
               <button
                 type="button"
@@ -114,7 +114,7 @@ export default function GameSetup() {
                     : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                AI (O)
+                Máy (O)
               </button>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default function GameSetup() {
             className="w-full flex items-center justify-center space-x-2 bg-indigo-600 text-white p-4 rounded-xl font-bold text-lg hover:bg-indigo-700 transition-colors"
           >
             <Play size={20} />
-            <span>Start Game</span>
+            <span>Bắt Đầu</span>
           </button>
         </div>
       </form>
