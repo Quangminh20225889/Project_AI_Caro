@@ -1,8 +1,8 @@
-**Dự án AI Caro**
+<h1 style="color: #E91E63; font-weight: bold;">Dự án AI Caro</h1>
 
 Game Caro/Gomoku với giao diện React và hệ thống xử lý FastAPI. Trí tuệ nhân tạo AI sử dụng thuật toán Minimax kết hợp cắt tỉa Alpha-Beta và đánh giá dựa trên các mẫu nước cờ.
 
-**Hướng dẫn chạy Backend (Hệ thống xử lý)**
+<h2 style="color: #4CAF50; font-weight: bold;">Hướng dẫn chạy Backend (Hệ thống xử lý)</h2>
 
 Mở màn hình dòng lệnh (Terminal/Command Prompt) và chạy lần lượt:
 
@@ -12,7 +12,7 @@ Mở màn hình dòng lệnh (Terminal/Command Prompt) và chạy lần lượt:
 - <span style="color:#007ACC">pip install -r requirements.txt</span> : Cài đặt các thư viện cần thiết
 - <span style="color:#007ACC">uvicorn main:app --reload</span> : Chạy server (tại http://localhost:8000)
 
-**Hướng dẫn chạy Frontend (Giao diện web)**
+<h2 style="color: #2196F3; font-weight: bold;">Hướng dẫn chạy Frontend (Giao diện web)</h2>
 
 Mở một màn hình dòng lệnh mới và chạy lần lượt:
 
@@ -20,7 +20,7 @@ Mở một màn hình dòng lệnh mới và chạy lần lượt:
 - <span style="color:#007ACC">npm install</span> : Tải và cài đặt các công cụ cần thiết
 - <span style="color:#007ACC">npm run dev</span> : Khởi chạy trang web (tại http://localhost:5173)
 
-**Cấu trúc thư mục chính**
+<h2 style="color: #9C27B0; font-weight: bold;">Cấu trúc thư mục chính</h2>
 
 Phần backend:
 
