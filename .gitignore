@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+backend/venv/
+backend/match_history.db
+backend/uvicorn.log
+
+frontend/node_modules/
+frontend/dist/
