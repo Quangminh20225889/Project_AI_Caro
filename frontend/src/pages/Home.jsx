@@ -8,7 +8,7 @@ export default function Home() {
     <div className="flex flex-col items-center py-12 px-4">
       <div className="max-w-3xl text-center space-y-8">
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">
-          Trở thành cao thủ Cờ Caro với <br className="hidden md:block"/>
+          Trở thành cao thủ Cờ Caro<br className="hidden md:block"/>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-emerald-500">
             AI Siêu Trí Tuệ
           </span>
@@ -40,7 +40,7 @@ export default function Home() {
               <Swords size={24} />
             </div>
             <h3 className="text-xl font-bold mb-2">Nhiều Chế Độ</h3>
-            <p className="text-gray-600">Chế độ Người vs Máy, Người vs Người, hoặc xem Máy vs Máy thi đấu.</p>
+            <p className="text-gray-600">Chế độ Người vs Máy, hoặc Người vs Người.</p>
           </div>
           
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">

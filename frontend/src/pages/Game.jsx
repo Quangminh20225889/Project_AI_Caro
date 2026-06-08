@@ -93,9 +93,6 @@ export default function Game() {
     
     // In PvA, player 2 is the AI.
     if (setup.mode === 'PvA' && currentPlayer === 2) return;
-    
-    // In AvA, human should never click
-    if (setup.mode === 'AvA') return;
 
     setAiError(null);
     await makeMove(r, c, currentPlayer);
@@ -105,9 +102,7 @@ export default function Game() {
   useEffect(() => {
     if (winner !== 0) return;
 
-    const isAiTurn = 
-      (setup.mode === 'PvA' && currentPlayer === 2) ||
-      (setup.mode === 'AvA');
+    const isAiTurn = setup.mode === 'PvA' && currentPlayer === 2;
 
     if (!isAiTurn) return;
 
@@ -209,13 +204,13 @@ export default function Game() {
             <div className="pt-2">
               <div className={`p-3 rounded-lg border flex items-center justify-between ${currentPlayer === 1 && winner === 0 ? 'bg-red-50 border-red-200 shadow-inner' : 'bg-gray-50 border-gray-200'}`}>
                 <div className="flex items-center space-x-2">
-                  {setup.mode === 'PvP' ? <User size={16} /> : (setup.mode === 'AvA' ? <Cpu size={16} /> : <User size={16} />)}
+                  <User size={16} />
                   <span className="font-bold text-red-600">Người chơi 1 (X)</span>
                 </div>
               </div>
               <div className={`mt-2 p-3 rounded-lg border flex items-center justify-between ${currentPlayer === 2 && winner === 0 ? 'bg-blue-50 border-blue-200 shadow-inner' : 'bg-gray-50 border-gray-200'}`}>
                 <div className="flex items-center space-x-2">
-                  {setup.mode === 'PvP' ? <User size={16} /> : (setup.mode === 'AvA' ? <Cpu size={16} /> : <Cpu size={16} />)}
+                  {setup.mode === 'PvP' ? <User size={16} /> : <Cpu size={16} />}
                   <span className="font-bold text-blue-600">Người chơi 2 (O)</span>
                 </div>
               </div>

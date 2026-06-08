@@ -5,7 +5,7 @@ import { Settings, Play } from 'lucide-react';
 export default function GameSetup() {
   const navigate = useNavigate();
   const [setup, setSetup] = useState({
-    mode: 'PvA', // PvA, PvP, AvA
+    mode: 'PvA', // PvA, PvP
     difficulty: 'medium', // easy, medium, hard
     boardSize: 15,
     firstPlayer: 1, // 1 for Player 1 (X), 2 for Player 2 / AI (O)
@@ -27,8 +27,8 @@ export default function GameSetup() {
         {/* Game Mode */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-3">Chế Độ Chơi</label>
-          <div className="grid grid-cols-3 gap-3">
-            {['PvA', 'PvP', 'AvA'].map((mode) => (
+          <div className="grid grid-cols-2 gap-3">
+            {['PvA', 'PvP'].map((mode) => (
               <button
                 key={mode}
                 type="button"
@@ -39,7 +39,7 @@ export default function GameSetup() {
                     : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                {mode === 'PvA' ? 'Người vs Máy' : mode === 'PvP' ? 'Người vs Người' : 'Máy vs Máy'}
+                {mode === 'PvA' ? 'Người vs Máy' : 'Người vs Người'}
               </button>
             ))}
           </div>
