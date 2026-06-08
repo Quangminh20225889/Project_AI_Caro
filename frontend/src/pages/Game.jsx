@@ -114,13 +114,12 @@ export default function Game() {
     const aiTurnKey = `${currentPlayer}-${moveHistory.length}`;
     if (isAiThinking.current || lastAiTurnKey.current === aiTurnKey) return;
 
-    lastAiTurnKey.current = aiTurnKey;
     let isCancelled = false;
 
     const runAiTurn = async () => {
-      await Promise.resolve();
       if (isCancelled) return;
 
+      lastAiTurnKey.current = aiTurnKey;
       isAiThinking.current = true;
       setIsProcessing(true);
       setAiError(null);
@@ -164,10 +163,11 @@ export default function Game() {
       }
     };
 
-    runAiTurn();
+    const timeoutId = window.setTimeout(runAiTurn, 0);
 
     return () => {
       isCancelled = true;
+      window.clearTimeout(timeoutId);
     };
   }, [
     currentPlayer,
