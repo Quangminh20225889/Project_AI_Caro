@@ -6,19 +6,31 @@ Game Caro/Gomoku với giao diện React và hệ thống xử lý FastAPI. Trí
 
 Mở màn hình dòng lệnh (Terminal/Command Prompt) và chạy lần lượt:
 
-- <span style="color:#007ACC">cd backend</span> : Di chuyển vào thư mục backend
-- <span style="color:#007ACC">python -m venv venv</span> : Tạo môi trường ảo
-- <span style="color:#007ACC">venv\Scripts\activate</span> : Bật môi trường ảo (Mac/Linux dùng: <span style="color:#007ACC">source venv/bin/activate</span>)
-- <span style="color:#007ACC">pip install -r requirements.txt</span> : Cài đặt các thư viện cần thiết
-- <span style="color:#007ACC">uvicorn main:app --reload</span> : Chạy server (tại http://localhost:8000)
+```bash
+# Di chuyển vào thư mục backend
+cd backend
+# Tạo môi trường ảo
+python -m venv venv
+# Bật môi trường ảo (Mac/Linux dùng: source venv/bin/activate)
+venv\Scripts\activate
+# Cài đặt các thư viện cần thiết
+pip install -r requirements.txt
+# Chạy server (tại http://localhost:8000)
+uvicorn main:app --reload
+```
 
 <h2 style="color: #2196F3; font-weight: bold;">Hướng dẫn chạy Frontend (Giao diện web)</h2>
 
 Mở một màn hình dòng lệnh mới và chạy lần lượt:
 
-- <span style="color:#007ACC">cd frontend</span> : Di chuyển vào thư mục frontend
-- <span style="color:#007ACC">npm install</span> : Tải và cài đặt các công cụ cần thiết
-- <span style="color:#007ACC">npm run dev</span> : Khởi chạy trang web (tại http://localhost:5173)
+```bash
+# Di chuyển vào thư mục frontend
+cd frontend
+# Tải và cài đặt các công cụ cần thiết
+npm install
+# Khởi chạy trang web (tại http://localhost:5173)
+npm run dev
+```
 
 <h2 style="color: #9C27B0; font-weight: bold;">Cấu trúc thư mục chính</h2>
 
