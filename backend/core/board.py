@@ -12,53 +12,76 @@ class Board:
         # 1: Quân của AI (thường là X)
         # 2: Quân của Người chơi (thường là O)
         if grid:
-            self.grid = grid # Nếu có sẵn trạng thái thì dùng luôn (thường dùng khi đệ quy Minimax copy bàn cờ)
+            self.grid = grid 
         else:
-            # Nếu chưa có, tạo ra một ma trận vuông toàn số 0 (bàn cờ mới hoàn toàn)
-            # Dùng list comprehension để tạo mảng 2 chiều kích thước size x size
             self.grid = [[0 for _ in range(size)] for _ in range(size)]
 
-    # --- HÀM LẤY DANH SÁCH CÁC NƯỚC ĐI HỢP LỆ ---
-    # CỰC KỲ QUAN TRỌNG ĐỂ TỐI ƯU TỐC ĐỘ CHO AI
+    # BẢN BACKUP: CODE CŨ (CHƯA CÓ MOVE ORDERING)
+    # Tốc độ chậm hơn vì dùng Set (không phân loại ưu tiên vị trí giao tranh)
+    # def get_valid_moves_old(self) -> List[Tuple[int, int]]:
+    #     moves = set() # Dùng kiểu Set để lưu tọa độ, tránh việc thêm trùng lặp cùng 1 ô
+    #     has_piece = False # Cờ đánh dấu xem trên bàn cờ đã có quân nào chưa
+    #     
+    #     for r in range(self.size): # r là hàng (row)
+    #         for c in range(self.size): # c là cột (column)
+    #             if self.grid[r][c] != 0:
+    #                 has_piece = True
+    #                 
+    #                 # Quét một ô vuông kích thước 5x5 xung quanh quân cờ này (bán kính = 2)
+    #                 for dr in range(-2, 3):
+    #                     for dc in range(-2, 3):
+    #                         if dr == 0 and dc == 0:
+    #                             continue
+    #                             
+    #                         nr, nc = r + dr, c + dc
+    #                         if 0 <= nr < self.size and 0 <= nc < self.size:
+    #                             if self.grid[nr][nc] == 0:
+    #                                 moves.add((nr, nc))
+    #     
+    #     if not has_piece:
+    #         return [(self.size // 2, self.size // 2)]
+    #         
+    #     return list(moves) # Chuyển Set thành List (mảng) và trả về
+
+    # --- HÀM LẤY DANH SÁCH CÁC NƯỚC ĐI HỢP LỆ (TỐI ƯU MOVE ORDERING) ---
     def get_valid_moves(self) -> List[Tuple[int, int]]:
         """
-        Tại sao không trả về toàn bộ ô trống?
-        Nếu bàn cờ 15x15 có 225 ô, Minimax sẽ phải duyệt 225 nhánh ở ngay bước đầu tiên -> Máy tính bị treo ngay!
-        Cách tối ưu: Ta chỉ cho AI đánh vào những ô trống xung quanh các ô đã có cờ (bán kính 2 ô).
-        Bởi vì đánh ở một góc xa xăm trống trơn là nước đi hoàn toàn vô nghĩa.
+        Lấy các ô trống trong bán kính 2 ô xung quanh các quân cờ đã có.
+        TỐI ƯU MOVE ORDERING: Sắp xếp các ô trống theo độ "nóng" (số lượng quân cờ xung quanh) 
+        để giúp Alpha-Beta Pruning cắt nhánh nhanh gấp hàng chục lần.
         """
-        moves = set() # Dùng kiểu Set để lưu tọa độ, tránh việc thêm trùng lặp cùng 1 ô
-        has_piece = False # Cờ đánh dấu xem trên bàn cờ đã có quân nào chưa
+        moves_scores = {} # Dictionary lưu tọa độ ô trống và điểm ưu tiên của nó
+        has_piece = False 
         
-        # Quét toàn bộ bàn cờ
-        for r in range(self.size): # r là hàng (row)
-            for c in range(self.size): # c là cột (column)
-                # Nếu ô này có cờ (bất kể là của AI hay của Người)
+        for r in range(self.size):
+            for c in range(self.size):
                 if self.grid[r][c] != 0:
                     has_piece = True
-                    
-                    # Quét một ô vuông kích thước 5x5 xung quanh quân cờ này (bán kính = 2)
-                    for dr in range(-2, 3): # dr (delta row): chạy từ -2 đến 2
-                        for dc in range(-2, 3): # dc (delta col): chạy từ -2 đến 2
-                            # Bỏ qua ô trung tâm (chính là ô đang có cờ)
+                    for dr in range(-2, 3): 
+                        for dc in range(-2, 3): 
                             if dr == 0 and dc == 0:
                                 continue
                                 
-                            # Tính tọa độ mới (nr, nc) của các ô xung quanh
                             nr, nc = r + dr, c + dc
-                            
-                            # Kiểm tra xem ô xung quanh này có nằm trong phạm vi bàn cờ không (không bị lọt ra ngoài rìa)
                             if 0 <= nr < self.size and 0 <= nc < self.size:
-                                # Nếu ô này đang trống, thì đây là một nước đi có ý nghĩa (valid move)
                                 if self.grid[nr][nc] == 0:
-                                    moves.add((nr, nc)) # Thêm vào danh sách (vì dùng Set nên không sợ bị trùng)
+                                    # CHẤM ĐIỂM ƯU TIÊN SẮP XẾP (MOVE ORDERING):
+                                    # Nếu ô trống nằm sát quân cờ (bán kính 1) -> Ưu tiên cao (+2 điểm)
+                                    # Nếu ô trống nằm cách 2 ô (bán kính 2) -> Ưu tiên thấp hơn (+1 điểm)
+                                    # Ô nào lân cận càng nhiều quân cờ thì điểm cộng dồn càng lớn!
+                                    weight = 2 if abs(dr) <= 1 and abs(dc) <= 1 else 1
+                                    
+                                    if (nr, nc) in moves_scores:
+                                        moves_scores[(nr, nc)] += weight
+                                    else:
+                                        moves_scores[(nr, nc)] = weight
         
-        # Xử lý trường hợp đặc biệt: Bàn cờ hoàn toàn trống (Nước đi đầu tiên của ván game)
         if not has_piece:
-            # AI sẽ mặc định đánh thẳng vào chính giữa bàn cờ (ví dụ 15//2 = 7 -> ô (7,7))
             return [(self.size // 2, self.size // 2)]
             
-        return list(moves) # Chuyển Set thành List (mảng) và trả về
+        # Sắp xếp danh sách giảm dần theo điểm ưu tiên để Alpha-Beta xét nước đi "nóng" nhất trước
+        sorted_moves = sorted(moves_scores.keys(), key=lambda k: moves_scores[k], reverse=True)
+        return sorted_moves
 
     # --- HÀM KIỂM TRA ĐIỀU KIỆN THẮNG ---
     # Truyền vào player (1 hoặc 2) để xem người đó đã thắng chưa
